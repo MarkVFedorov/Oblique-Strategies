@@ -3,63 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oblique Strategies Generator</title>
+    <title>Oblique Strategies</title>
     <style>
         body {
             font-family: system-ui, -apple-system, sans-serif;
             background-color: #f0f0f0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            margin: 2rem;
-        }
-
-        .container {
-            max-width: 600px;
-            text-align: center;
-        }
-
-        h1 {
-            color: #2c3e50;
-            margin-bottom: 2rem;
-        }
-
-        #strategy-card {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin: 2rem 0;
-            min-height: 150px;
+            margin: 0;
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
-            line-height: 1.5;
-        }
-
-        button {
-            background-color: #3498db;
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 5px;
-            font-size: 1.1rem;
             cursor: pointer;
-            transition: background-color 0.3s ease;
         }
 
-        button:hover {
-            background-color: #2980b9;
+        #content {
+            text-align: center;
+            padding: 20px;
+            max-width: 600px;
+            min-height: 100px;
+        }
+
+        .text {
+            font-size: 1.5rem;
+            line-height: 1.5;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Oblique Strategies</h1>
-        <div id="strategy-card">Click the button to get a strategy</div>
-        <button onclick="getRandomStrategy()">New Strategy</button>
+    <div id="content">
+        <div class="text" id="strategy">inspire</div>
     </div>
 
     <script>
@@ -177,26 +155,40 @@
             "You don’t have to be ashamed of using your own ideas."
         ];
 
-        function getRandomStrategy() {
-            const card = document.getElementById('strategy-card');
-            const randomIndex = Math.floor(Math.random() * strategies.length);
-            card.textContent = strategies[randomIndex];
+        let shuffledStrategies = [];
+        let currentIndex = 0;
+        let firstClick = true;
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function getNextStrategy() {
+            if (currentIndex >= shuffledStrategies.length) {
+                shuffledStrategies = [...strategies];
+                shuffleArray(shuffledStrategies);
+                currentIndex = 0;
+            }
+            return shuffledStrategies[currentIndex++];
+        }
+
+        function handleClick() {
+            const strategyElement = document.getElementById('strategy');
             
-            // Add slight animation
-            card.style.animation = 'none';
-            card.offsetHeight; // Trigger reflow
-            card.style.animation = 'fadeIn 0.5s';
+            if (firstClick) {
+                shuffledStrategies = [...strategies];
+                shuffleArray(shuffledStrategies);
+                firstClick = false;
+            }
+            
+            strategyElement.textContent = getNextStrategy();
         }
 
-        // Initial strategy on load
-        getRandomStrategy();
+        // Initialize click handler
+        document.body.addEventListener('click', handleClick);
     </script>
-
-    <style>
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
 </body>
 </html>
