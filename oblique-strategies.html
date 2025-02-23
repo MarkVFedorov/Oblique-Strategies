@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oblique Strategies</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        #content {
+            text-align: center;
+            padding: 20px;
+            max-width: 600px;
+            min-height: 100px;
+        }
+
+        .text {
+            font-size: 1.5rem;
+            line-height: 1.5;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <div class="text" id="strategy">inspire</div>
+    </div>
+
+    <script>
+        const strategies = [
+            "Use an old idea.",
+            "Emphasize the flaws.",
+            "Repetition is a form of change.",
+            "Honor thy error as a hidden intention.",
+            "Ask your body.",
+            "What would your closest friend do?",
+            "Be less critical.",
+            "Work at a different speed.",
+            "Look closely at the most embarrassing details and amplify them.",
+            "Make a sudden, destructive, unpredictable action; incorporate.",
+            "Take a break.",
+            "Use fewer notes.",
+            "Disconnect from desire.",
+            "Faced with a choice, do both.",
+            "Consider different fading systems.",
+            "Turn it upside down.",
+            "Go outside. Shut the door.",
+            "Use filters.",
+            "Listen to the quiet voice.",
+            "Is it finished?",
+            "What to increase? What to reduce?",
+            "Don't stress one thing more than another.",
+            "Remove specifics; convert to ambiguities.",
+            "Go to an extreme, move back to a more comfortable place.",
+            "Not building a wall but making a brick.",
+            "Do the words need changing?",
+            "Decorate, decorate.",
+            "Balance the consistency principle with the inconsistency principle.",
+            "Fill every beat with something.",
+            "Remove ambiguities and convert to specifics.",
+            "Think of the radio.",
+            "Do nothing for as long as possible.",
+            "Discover the recipes you are using and abandon them.",
+            "Courage!",
+            "Abandon normal instruments.",
+            "Breathe more deeply.",
+            "Emphasize differences.",
+            "Only one element of each kind.",
+            "State the problem in words as clearly as possible.",
+            "What are you really thinking about just now?",
+            "Don't break the silence.",
+            "Use 'unqualified' people.",
+            "How would you have done it?",
+            "Make it more sensual.",
+            "Question the heroic approach.",
+            "Define an area as 'safe' and use it as an anchor.",
+            "Overtly resist change.",
+            "Tidy up.",
+            "Do we need holes?",
+            "Cluster analysis.",
+            "Change nothing and continue with immaculate consistency.",
+            "Destroy the most important thing.",
+            "Discard an axiom.",
+            "What would your closest enemy do?",
+            "Make something implied more explicit.",
+            "Reverse the roles.",
+            "Imagine the music as a moving chain or caterpillar.",
+            "Use an unacceptable color.",
+            "Make a blank valuable by putting it in an exquisite frame.",
+            "Think of the piece as a set of disconnected events.",
+            "What would your mentor do?",
+            "Subtract the obvious; add the meaningful.",
+            "Try faking it.",
+            "Accretion: add layers gradually.",
+            "Distort time.",
+            "Make a list of everything you might do and do the last thing on the list.",
+            "Infinitesimal gradations.",
+            "Into the impossible.",
+            "Is there something missing?",
+            "Just carry on.",
+            "Listen in total darkness, or in a very large room, very quietly.",
+            "Look at the order in which you do things.",
+            "Magnify the most difficult details.",
+            "Make it more human.",
+            "Move toward the unimportant.",
+            "Not building a wall but making a brick.",
+            "Once the search is in progress, something will be found.",
+            "Only a part, not the whole.",
+            "Pay attention to distractions.",
+            "Put in earplugs.",
+            "Question the heroic stance.",
+            "Remember quiet evenings.",
+            "Remove the middle, extend the edges.",
+            "Retrace your steps.",
+            "Reveal the framework.",
+            "Simple subtraction.",
+            "Slow preparation, fast execution.",
+            "State the problem as clearly as possible.",
+            "Take away the elements in order of apparent non-importance.",
+            "The inconsistency principle.",
+            "The most important thing is the thing most easily forgotten.",
+            "Think – inside the work, outside the work.",
+            "Tidy up.",
+            "Try to make things as similar as possible.",
+            "Turn it inside out.",
+            "Use an idea from someone else.",
+            "Use clichés.",
+            "Use something nearby as a model.",
+            "Voice your suspicions.",
+            "Water.",
+            "What context would look right?",
+            "What is the simplest solution?",
+            "What mistakes did you make last time?",
+            "What would your closest friend do?",
+            "When is it for?",
+            "Where is the edge?",
+            "Which frame would make this look right?",
+            "Which parts can be grouped?",
+            "Who would make this really successful?",
+            "You are an engineer.",
+            "You don’t have to be ashamed of using your own ideas."
+        ];
+
+        let shuffledStrategies = [];
+        let currentIndex = 0;
+        let firstClick = true;
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function getNextStrategy() {
+            if (currentIndex >= shuffledStrategies.length) {
+                shuffledStrategies = [...strategies];
+                shuffleArray(shuffledStrategies);
+                currentIndex = 0;
+            }
+            return shuffledStrategies[currentIndex++];
+        }
+
+        function handleClick() {
+            const strategyElement = document.getElementById('strategy');
+            
+            if (firstClick) {
+                shuffledStrategies = [...strategies];
+                shuffleArray(shuffledStrategies);
+                firstClick = false;
+            }
+            
+            strategyElement.textContent = getNextStrategy();
+        }
+
+        // Initialize click handler
+        document.body.addEventListener('click', handleClick);
+    </script>
+</body>
+</html>
